@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pytest-xdist-operator
+  labels:
+    app: pytest-xdist-operator
+spec:
+  replicas: 1 # make sure to not have more than one replicas
+  strategy:
+    type: Recreate # make sure the old pod is being killed before the new pod is being created
+  selector:
+    matchLabels:
+      app: pytest-xdist-operator
+  template:
+    metadata:
+      labels:
+        app: pytest-xdist-operator
+    spec:
+      serviceAccountName: pytest-xdist-operator
+      containers:
+      - name: pytest-xdist-operator
+        image: johnteslade/pytest-xdist-k8s:operator
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred

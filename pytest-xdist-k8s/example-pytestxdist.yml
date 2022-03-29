@@ -1,0 +1,10 @@
+apiVersion: jtes.net/v1
+kind: PytestXdist
+metadata:
+  name: test1
+spec:
+  num_nodes: 3
+  image: 'johnteslade/pytest-xdist-k8s:example-tests'
+  socket_server_port: 8888
+  pytest_dir: "/tests"
+  extra_pytest_args: ["-v"]
